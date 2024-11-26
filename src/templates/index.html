@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#DB8316"/>
+    <meta name="description" content="Discover and explore your favorite restaurants effortlessly">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="manifest" href="./app.webmanifest">
+  <link rel="icon" href="./favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <title>Zahran's Resto</title>
+</head>
+<body>
+    <!-- Skip to Content -->
+    <a href="#main-content" class="skip-link">Skip to Content</a>
+
+    <!-- App Bar (Navigation) -->
+    <header>
+      <nav class="app-bar">
+          <a href="/" class="app-logo" aria-label="Homepage">Zahran's Resto</a>
+          <button id="menu-button" aria-label="Open menu" aria-expanded="false" class="menu-toggle">☰
+              <span class="menu-icon"></span>
+          </button>
+          <ul id="menu" class="nav-menu">
+              <li><a href="/">Home</a></li>
+              <li><a href="#/like">Favorite</a></li>
+              <li><a href="https://linkedin.com/in/muhammad-zahran-winzardy">About Us</a></li>
+          </ul>
+      </nav>
+  </header>
+  
+
+    <!-- Hero Element -->
+    <section class="hero" aria-labelledby="hero-heading">
+        <img src="./images/heros/hero-image_2.jpg" alt="Restaurant showcase" class="hero-image">
+        <div class="hero-text">
+            <h1 id="hero-heading">Welcome to Zahran's Resto</h1>
+            <p>Find the Best Restaurant Near You</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="main-content">
+    <div class="list-restaurant-container"> 
+          <h2 class="list-restaurant-title">List Restaurant</h2>
+    </div>
+
+
+
+        <!-- Form Pencarian Restoran -->
+        
+        <form id="search-form" aria-label="Search Restaurants">
+            <label for="search-input" class="visually-hidden"></label>
+            <input type="text" id="search-input" placeholder="Find the Restaurant" aria-required="true">
+            <button type="submit">Search</button>
+        </form>                      
+
+        <ul id="restaurant-list"></ul>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright &#169; 2024 - Zahran's Resto</p>
+    </footer>
+
+    <script src="scripts/index.js"></script>
+</body>
+</html>
