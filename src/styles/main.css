@@ -167,6 +167,60 @@ a {
   outline: 3px solid #508C9B;
 }
 
+.restaurant-detail__card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px 0;
+  background-color: #fff;
+}
+
+.restaurant-detail__header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.restaurant-detail__poster {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.restaurant-detail__info {
+  flex-grow: 1;
+}
+
+.restaurant-detail__content {
+  padding: 20px;
+}
+
+.restaurant-detail__section {
+  margin-bottom: 20px;
+}
+
+.restaurant-detail__section h3 {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.restaurant-detail__section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.restaurant-detail__section ul li {
+  margin-bottom: 5px;
+  padding: 20px;
+  border-bottom: 1px dashed #ddd;
+}
+
 /* Bagian Gambar Restoran */
 .headline__figure {
   position: relative;
@@ -389,8 +443,50 @@ footer {
   }
 }
 
+@media (max-width: 768px) {
+  #menu-button {
+    display: block;
+    padding: 22px;
+  }
+}
+
+
+
 /* Accessibility */
 button[type="submit"], .nav-menu a, #menu-button, .restaurant-card {
   min-width: 44px;
   min-height: 44px;
+}
+
+.nav-menu.open {
+  display: block;
+}
+
+/* Enhanced Floating Like Button at the Bottom */
+
+.like {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(219, 91%, 47%);
+
+  position: fixed;
+  bottom: 10px;
+  right: 5px;
+  border-radius: 50%;
+  border: none;
+
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.like:hover {
+  background-color: #508C9B;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
 }

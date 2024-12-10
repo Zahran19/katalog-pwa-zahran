@@ -33,8 +33,12 @@
   
 
     <!-- Hero Element -->
-    <section class="hero" aria-labelledby="hero-heading">
-        <img src="./images/heros/hero-image_2.jpg" alt="Restaurant showcase" class="hero-image">
+    <section class="hero" aria-labelledby="hero-heading" style="width: 100%;">
+        <picture>
+            <source media="(max-width: 600px)" srcset="./hero-image_2-small.jpg">
+            <img src="./hero-image_2-large.jpg" alt="gambar" style="width: 100%;">
+        </picture>
+               
         <div class="hero-text">
             <h1 id="hero-heading">Welcome to Zahran's Resto</h1>
             <p>Find the Best Restaurant Near You</p>
@@ -42,13 +46,9 @@
     </section>
 
     <!-- Main Content -->
-    <main id="main-content">
-    <div class="list-restaurant-container"> 
-          <h2 class="list-restaurant-title">List Restaurant</h2>
-    </div>
-
-
-
+    <main id="main-content" tabindex="0">
+        <h2 class="visually-hidden">List Restaurant</h2> <!-- Hidden heading for screen readers -->
+    
         <!-- Form Pencarian Restoran -->
         
         <form id="search-form" aria-label="Search Restaurants">

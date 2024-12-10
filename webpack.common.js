@@ -2,6 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
+const ImageminMozjpeg = require('imagemin-mozjpeg');
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: {
@@ -12,6 +16,18 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all', // Berlaku untuk semua jenis chunks
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/, // Semua library dari node_modules
+          name: 'vendors', // Output file untuk vendor
+          chunks: 'all', // Terapkan pada semua chunks
+        },
+      },
+    },
   },
   module: {
     rules: [
@@ -27,11 +43,11 @@ module.exports = {
         ],
       },
       {
-        test: /\.scss$/, // Rule untuk file SASS/SCSS
+        test: /\.scss$/, // Rule for SASS/SCSS files
         use: [
-          'style-loader', // Menyisipkan CSS ke dalam DOM
-          'css-loader', // Mengonversi CSS ke dalam format JS
-          'sass-loader', // Mengompilasi SASS menjadi CSS
+          'style-loader', // Injects CSS into the DOM
+          'css-loader', // Transforms CSS into JS
+          'sass-loader', // Compiles SASS to CSS
         ],
       },
     ],
@@ -46,11 +62,15 @@ module.exports = {
         {
           from: path.resolve(__dirname, 'src/public/'),
           to: path.resolve(__dirname, 'dist/'),
+          globOptions: {
+            // CopyWebpackPlugin mengabaikan berkas yang berada di dalam folder images
+            ignore: ['**/images/**'],
+          },
         },
       ],
     }),
     new WorkboxWebpackPlugin.GenerateSW({
-      swDest: './sw.bundle.js', // Nama file hasil bundle di dist
+      swDest: './sw.bundle.js', // Output file name for the service worker
       runtimeCaching: [
         {
           urlPattern: ({ url }) =>
@@ -71,6 +91,49 @@ module.exports = {
           },
         },
       ],
+    }),
+    new ImageminWebpackPlugin({
+      apply: (compiler) => {
+        compiler.hooks.compilation.tap(
+          'ImageminWebpackPlugin',
+          (compilation) => {
+            compilation.hooks.processAssets.tap(
+              {
+                name: 'ImageminWebpackPlugin',
+                stage: webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
+              },
+              (assets) => {
+                Object.keys(assets).forEach((asset) => {
+                  if (
+                    asset.endsWith('.jpg') ||
+                    asset.endsWith('.jpeg') ||
+                    asset.endsWith('.png')
+                  ) {
+                    if (assets[asset].size() > 200 * 1024) {
+                      assets[asset] = ImageminMozjpeg({
+                        quality: 50,
+                        progressive: true,
+                      }).process(assets[asset]);
+                    }
+                  }
+                });
+              }
+            );
+          }
+        );
+      },
+      plugins: [
+        ImageminMozjpeg({
+          quality: 50,
+          progressive: true,
+        }),
+      ],
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server', // Jalankan server lokal
+      analyzerHost: 'localhost', // Host server
+      analyzerPort: 8888, // Port server
+      openAnalyzer: true, // Otomatis membuka browser
     }),
   ],
 };

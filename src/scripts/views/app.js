@@ -11,6 +11,10 @@ class App {
     // Inisialisasi komponen aplikasi
     this._initialAppShell();
   }
+  //tooglemenudrawer(){
+  //  this._button.addEventListener('click', (event) => {
+  //    event.preventDefault(); // Mencegah navigasi default
+  //}
 
   _initialAppShell() {
     DrawerInitiator.init({
